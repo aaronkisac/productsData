@@ -16,29 +16,25 @@ router.get('/', function (req, res) {
 
 router.get('/allProducts',(function (req, res) { res.json(mockData) }))
  
-router.get("/searchProduct&keyword=:searchKeyword",(
+router.get("/searchProduct&searchKeyword=:searchKeyword",(
   function (req, res) { 
     if (err) {
     res.json({
       status: 'error',
       message: err
     });
-  }
- 
+  }else{
     const keyword=req.params.searchKeyword.toLowerCase();
     const filteredList = []
-    console.log(keyword)
     mockData.map(item => {
       item.items.map(insideItem => {
         (insideItem.name.toLowerCase().search(keyword) > -1 || insideItem.description.toLowerCase().search(keyword) > -1) && filteredList.push(insideItem)
       })
     })
-    res.send({
-      status: 'success',
-      message: 'Contacts retrieved successfully',
-      data: filteredList
-    }.toString);
+    res.send(filteredList)}
   }))
+
+
 router.get('/getCategoryList',(function (req, res) { 
   let categoryList=[];
   mockData.forEach(item => {
