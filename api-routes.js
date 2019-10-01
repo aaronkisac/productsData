@@ -18,12 +18,7 @@ router.get('/allProducts',(function (req, res) { res.json(mockData) }))
  
 router.get("/searchProduct&searchKeyword=:searchKeyword",(
   function (req, res) { 
-    if (err) {
-    res.json({
-      status: 'error',
-      message: err
-    });
-  }else{
+   
     const keyword=req.params.searchKeyword.toLowerCase();
     const filteredList = []
     mockData.map(item => {
@@ -31,7 +26,7 @@ router.get("/searchProduct&searchKeyword=:searchKeyword",(
         (insideItem.name.toLowerCase().search(keyword) > -1 || insideItem.description.toLowerCase().search(keyword) > -1) && filteredList.push(insideItem)
       })
     })
-    res.send(filteredList)}
+    res.send(filteredList)
   }))
 
 
