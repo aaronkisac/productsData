@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Setup server port
 var port = process.env.PORT || 8080;
 // Send message for default URL
-app.get('/', (req, res) => res.send('Wellcome to Our Big Online Shop'));
+app.get('/', (req, res) => res.send('Wellcome to Our Online Shop'));
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
