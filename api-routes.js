@@ -6,27 +6,27 @@ var cors = require('cors');
 
 
 // var productController = require('./productController');
-var whitelist = ['https://products-data.herokuapp.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-// Set default API response
-router.get('/', cors(corsOptions),function (req, res) {
+// var whitelist = ['https://products-data.herokuapp.com']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
+// // Set default API response
+router.get('/', cors(),function (req, res) {
   res.json({
     status: 'API Its Working',
     message: 'Welcome to API!',
   });
 });
 
-router.get('/allProducts',cors(corsOptions),(function (req, res) { res.json(mockData) }))
+router.get('/allProducts',cors(),(function (req, res) { res.json(mockData) }))
  
-router.get('/searchProduct&searchKeyword=:searchKeyword',cors(corsOptions),(
+router.get('/searchProduct&searchKeyword=:searchKeyword',cors(),(
   function (req, res) { 
    
     const keyword=req.params.searchKeyword.toLowerCase();
@@ -40,7 +40,7 @@ router.get('/searchProduct&searchKeyword=:searchKeyword',cors(corsOptions),(
   }))
 
 
-router.get('/getCategoryList',cors(corsOptions),(function (req, res) { 
+router.get('/getCategoryList',cors(),(function (req, res) { 
   let categoryList=[];
   mockData.forEach(item => {
   categoryList.push({"id":item.id,
@@ -53,7 +53,7 @@ router.get('/getCategoryList',cors(corsOptions),(function (req, res) {
 res.json(categoryList)
 }))
 
-router.get('/getProductsByCategory&categoryId=:categoryId',cors(corsOptions),(
+router.get('/getProductsByCategory&categoryId=:categoryId',cors(),(
   function (req, res) { 
     const id=req.params.categoryId
     let productsByCategory=[];
@@ -61,7 +61,7 @@ router.get('/getProductsByCategory&categoryId=:categoryId',cors(corsOptions),(
     
 res.json(productsByCategory)  
 }))
-router.get('/getProductDetails&productId=:productId',cors(corsOptions),(
+router.get('/getProductDetails&productId=:productId',cors(),(
   function (req, res) { 
 const id=req.params.productId;
 let productsById=[];
