@@ -2,21 +2,31 @@
 // Initialize express router
 let router = require('express').Router();
 mockData = require('./products');
+var cors = require('cors');
 
 
 // var productController = require('./productController');
-
+var whitelist = ['https://products-data.herokuapp.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 // Set default API response
-router.get('/', function (req, res) {
+router.get('/', cors(corsOptions),function (req, res) {
   res.json({
     status: 'API Its Working',
     message: 'Welcome to API!',
   });
 });
 
-router.get('/allProducts',(function (req, res) { res.json(mockData) }))
+router.get('/allProducts',cors(corsOptions),(function (req, res) { res.json(mockData) }))
  
-router.get('/searchProduct&searchKeyword=:searchKeyword',(
+router.get('/searchProduct&searchKeyword=:searchKeyword',cors(corsOptions),(
   function (req, res) { 
    
     const keyword=req.params.searchKeyword.toLowerCase();
@@ -30,7 +40,7 @@ router.get('/searchProduct&searchKeyword=:searchKeyword',(
   }))
 
 
-router.get('/getCategoryList',(function (req, res) { 
+router.get('/getCategoryList',cors(corsOptions),(function (req, res) { 
   let categoryList=[];
   mockData.forEach(item => {
   categoryList.push({"id":item.id,
@@ -43,7 +53,7 @@ router.get('/getCategoryList',(function (req, res) {
 res.json(categoryList)
 }))
 
-router.get('/getProductsByCategory&categoryId=:categoryId',(
+router.get('/getProductsByCategory&categoryId=:categoryId',cors(corsOptions),(
   function (req, res) { 
     const id=req.params.categoryId
     let productsByCategory=[];
@@ -51,7 +61,7 @@ router.get('/getProductsByCategory&categoryId=:categoryId',(
     
 res.json(productsByCategory)  
 }))
-router.get('/getProductDetails&productId=:productId',(
+router.get('/getProductDetails&productId=:productId',cors(corsOptions),(
   function (req, res) { 
 const id=req.params.productId;
 let productsById=[];
