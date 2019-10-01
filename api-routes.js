@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 
 router.get('/allProducts',(function (req, res) { res.json(mockData) }))
  
-router.get("/searchProduct&searchKeyword=:searchKeyword",(
+router.get('/searchProduct&searchKeyword=:searchKeyword',(
   function (req, res) { 
    
     const keyword=req.params.searchKeyword.toLowerCase();
@@ -43,7 +43,7 @@ router.get('/getCategoryList',(function (req, res) {
 res.json(categoryList)
 }))
 
-router.get("/getProductsByCategory&categoryId=:categoryId",(
+router.get('/getProductsByCategory&categoryId=:categoryId',(
   function (req, res) { 
     const id=req.params.categoryId
     let productsByCategory=[];
@@ -51,7 +51,7 @@ router.get("/getProductsByCategory&categoryId=:categoryId",(
     
 res.json(productsByCategory)  
 }))
-router.get("/getProductDetails&productId=:productId",(
+router.get('/getProductDetails&productId=:productId',(
   function (req, res) { 
 const id=req.params.productId;
 let productsById=[];
